@@ -4,7 +4,8 @@ This library provides an intuitive API for building, training, and optimizing ne
 Developing GPU and CPU paralelization for forward and backward propagation now...
 
 
-Contact
+Contributions are welcome!
+
 
 For any questions or suggestions, feel free to reach out!
 
