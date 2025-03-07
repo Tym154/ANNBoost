@@ -1,7 +1,7 @@
 #ifndef SERIALIZATION_HPP
 #define SERIALIZATION_HPP
 
-#include "network.hpp"
+#include "core_network.hpp"
 #include <fstream>
 
 // saving a neural network to a txt file

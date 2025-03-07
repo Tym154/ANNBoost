@@ -1,51 +1,31 @@
-# Compiler and flags
+# Set compiler
 CXX = g++
-NVCC = nvcc  # NVIDIA CUDA Compiler
+NVCC = nvcc
 
-CXXFLAGS = -Wall -std=c++11
-CUDAFLAGS = -std=c++11 -O2
+# Options
+USE_CUDA ?= 0
 
 # Directories
-SRC_DIR = src
-INC_DIR = include
-BUILD_DIR = build
+CORE_DIR = CORE_ANNBoost
+CPU_DIR = CPU_ANNBoost
+CUDA_DIR = CUDA_ANNBoost
 
-# Library and Object Files
-LIBRARY_NAME = lib_ANN.a
-CPU_OBJECTS = $(BUILD_DIR)/node.o $(BUILD_DIR)/layer.o $(BUILD_DIR)/network.o $(BUILD_DIR)/serialization.o $(BUILD_DIR)/trainer.o
-CUDA_OBJECTS = $(BUILD_DIR)/cuda_backend.o
+all: core cpu $(if $(filter 1,$(USE_CUDA)),cuda,)
 
-# Default: CPU-only build
-OBJECTS = $(CPU_OBJECTS)
+core:
+	$(MAKE) -C $(CORE_DIR)
 
-# If USE_CUDA is set, include CUDA objects
-ifdef USE_CUDA
-    OBJECTS += $(CUDA_OBJECTS)
-    CXXFLAGS += -DUSE_CUDA
-endif
+cpu: core
+	$(MAKE) -C $(CPU_DIR)
 
-# Build target
-all: $(LIBRARY_NAME)
+cuda: core
+	$(MAKE) -C $(CUDA_DIR)
 
-$(LIBRARY_NAME): $(OBJECTS)
-	@echo "Creating library $@"
-	ar rcs $@ $^
-
-# Rule to compile CPU source files into object files
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
-	@mkdir -p $(BUILD_DIR)
-	$(CXX) $(CXXFLAGS) -I$(INC_DIR) -c $< -o $@
-
-# Rule to compile CUDA source files if enabled
-$(BUILD_DIR)/cuda_backend.o: $(SRC_DIR)/cuda_backend.cu
-	@mkdir -p $(BUILD_DIR)
-	$(NVCC) $(CUDAFLAGS) -I$(INC_DIR) -c $< -o $@
-
-# Clean up the build directory
 clean:
-	rm -rf $(BUILD_DIR) $(LIBRARY_NAME)
+	$(MAKE) -C $(CORE_DIR) clean
+	$(MAKE) -C $(CPU_DIR) clean
+	$(MAKE) -C $(CUDA_DIR) clean
 
-# Rebuild everything
 rebuild: clean all
 
-.PHONY: all clean rebuild
+.PHONY: all core cpu cuda clean rebuild

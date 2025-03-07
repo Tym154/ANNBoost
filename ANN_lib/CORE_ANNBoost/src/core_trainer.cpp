@@ -1,4 +1,4 @@
-#include "../include/trainer.hpp"
+#include "../include/core_trainer.hpp"
 #include <cassert>
 
 
@@ -12,7 +12,3 @@ void online_train(const std::vector<std::vector<double>> &input_data, const std:
         net.network_backward_propagation(expected_activations[i]);
     }
 }    
-
-void GPU_online_train(const std::vector<std::vector<double>> &input_data, const std::vector<std::vector<double>> &expected_activations, network& net){
-    
-}

@@ -1,4 +1,4 @@
-#include "../include/node.hpp"
+#include "../include/core_node.hpp"
 #include <cmath>
 #include <cassert>
 

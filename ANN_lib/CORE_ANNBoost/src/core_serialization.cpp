@@ -1,4 +1,4 @@
-#include "../include/serialization.hpp"
+#include "../include/core_serialization.hpp"
 #include <sstream>
 #include <fstream>
 #include <cassert>

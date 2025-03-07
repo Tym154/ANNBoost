@@ -1,4 +1,4 @@
-#include "../include/network.hpp"
+#include "../include/core_network.hpp"
 #include <cmath>
 
 // basic network constructor
@@ -34,16 +34,6 @@ void network::network_forward_propagation(const std::vector<double> &input){
 
     for(size_t i = 1; i < layers.size(); i++){
         layers[i].layer_forward_propagation(layers[i-1].nodes_in_layer);
-    }
-}
-
-void network::network_forward_propagationGPU(const std::vector<double> &input){
-    for(size_t i = 0; i < layers[0].nodes_in_layer.size(); i++){
-        layers[0].nodes_in_layer[i].activation = input[i];
-    }
-
-    for(size_t i = 1; i < layers.size(); i++){
-        layers[i].layer_forward_propagationGPU(layers[i-1].nodes_in_layer);
     }
 }
 

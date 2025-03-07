@@ -2,8 +2,8 @@
 #define LAYER_HPP
 
 #include <vector>
-#include "node.hpp"
-#include "layer.hpp"
+#include "core_node.hpp"
+#include "core_layer.hpp"
 
 class network_layer{
     public:

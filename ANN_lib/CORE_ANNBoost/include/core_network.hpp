@@ -3,8 +3,8 @@
 
 #include <vector>
 #include <cassert>
-#include "node.hpp"
-#include "layer.hpp"
+#include "core_node.hpp"
+#include "core_layer.hpp"
 
 class network{
     public:
