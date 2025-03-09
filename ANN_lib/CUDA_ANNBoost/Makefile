@@ -8,7 +8,7 @@ INCLUDE_DIR = include
 SRCS = $(wildcard $(SRC_DIR)/*.cu)
 OBJS = $(SRCS:$(SRC_DIR)/%.cu=$(BUILD_DIR)/%.o)
 
-LIB = libcuda_ann.a
+LIB = libcuda_annboost.a
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cu
 	$(NVCC) $(NVCCFLAGS) -I$(INCLUDE_DIR) -I../CORE_ANNBoost/include -c $< -o $@

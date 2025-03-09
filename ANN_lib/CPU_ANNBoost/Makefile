@@ -8,7 +8,7 @@ INCLUDE_DIR = include
 SRCS = $(wildcard $(SRC_DIR)/*.cpp)
 OBJS = $(SRCS:$(SRC_DIR)/%.cpp=$(BUILD_DIR)/%.o)
 
-LIB = libcpu_ann.a
+LIB = libcpu_annboost.a
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 	$(CXX) $(CXXFLAGS) -I$(INCLUDE_DIR) -I../CORE_ANNBoost/include -c $< -o $@

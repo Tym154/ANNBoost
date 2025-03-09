@@ -1,5 +1,5 @@
-#ifndef LAYER_HPP
-#define LAYER_HPP
+#ifndef CORE_LAYER_HPP
+#define CORE_LAYER_HPP
 
 #include <vector>
 #include "core_node.hpp"

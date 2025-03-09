@@ -1,5 +1,5 @@
-#ifndef NODE_HPP
-#define NODE_HPP
+#ifndef CORE_NODE_HPP
+#define CORE_NODE_HPP
 
 #include <vector>
 #include <unordered_map>

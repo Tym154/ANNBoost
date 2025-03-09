@@ -1,5 +1,5 @@
-#ifndef NETWORK_HPP
-#define NETWORK_HPP
+#ifndef CORE_NETWORK_HPP
+#define CORE_NETWORK_HPP
 
 #include <vector>
 #include <cassert>

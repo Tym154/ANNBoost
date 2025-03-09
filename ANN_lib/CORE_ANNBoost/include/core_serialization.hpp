@@ -1,5 +1,5 @@
-#ifndef SERIALIZATION_HPP
-#define SERIALIZATION_HPP
+#ifndef CORE_SERIALIZATION_HPP
+#define CORE_SERIALIZATION_HPP
 
 #include "core_network.hpp"
 #include <fstream>

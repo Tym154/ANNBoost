@@ -4,13 +4,15 @@ NVCC = nvcc
 
 # Options
 USE_CUDA ?= 0
+USE_CPU ?= 0
+
 
 # Directories
 CORE_DIR = CORE_ANNBoost
 CPU_DIR = CPU_ANNBoost
 CUDA_DIR = CUDA_ANNBoost
 
-all: core cpu $(if $(filter 1,$(USE_CUDA)),cuda,)
+all: core $(if $(filter 1,$(USE_CPU)),cpu) $(if $(filter 1,$(USE_CUDA)),cuda)
 
 core:
 	$(MAKE) -C $(CORE_DIR)

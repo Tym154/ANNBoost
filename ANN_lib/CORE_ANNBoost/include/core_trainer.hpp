@@ -1,5 +1,5 @@
-#ifndef TRAINER_HPP
-#define TRAINER_HPP
+#ifndef CORE_TRAINER_HPP
+#define CORE_TRAINER_HPP
 
 #include <vector>
 #include "../include/core_network.hpp"
