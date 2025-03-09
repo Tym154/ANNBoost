@@ -11,6 +11,7 @@ OBJS = $(SRCS:$(SRC_DIR)/%.cu=$(BUILD_DIR)/%.o)
 LIB = libcuda_annboost.a
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cu
+	@mkdir -p $(BUILD_DIR)
 	$(NVCC) $(NVCCFLAGS) -I$(INCLUDE_DIR) -I../CORE_ANNBoost/include -c $< -o $@
 
 all: $(LIB)
