@@ -5,3 +5,16 @@ You can build this library with two parametes:
 USE_CUDA builds the GPU_ANNBoost folder too, so you can use GPU paralelization functions
 
 USE_CPU builds the CPU_ANNBoost folder, same as the USE_CUDA but with CPU paralelization
+
+rebuild cleans all build folders and .a files and rebuilds them from scratch
+
+samples:
+
+$ make USE_CUDA=1
+
+$ make USE_CPU=1
+
+$ make USE_CUDA=1 USE_CPU=1
+
+$ make rebuild USE_CUDA=1
+
