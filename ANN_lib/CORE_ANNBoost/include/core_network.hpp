@@ -7,6 +7,7 @@
 #include "core_layer.hpp"
 
 class network{
+    // There are all the CORE functions
     public:
         std::vector<network_layer> layers; // layers in the network
         std::vector<double> output_layer_losses; // losses of the output layers
@@ -21,14 +22,21 @@ class network{
         // propagating forward
         void network_forward_propagation(const std::vector<double> &input);
 
-        void network_forward_propagationGPU(const std::vector<double> &input);
-
         void network_backward_propagation(const std::vector<double> &expected_activations);
 
         int get_the_most_active_in_output();
     
     private:
         std::vector<double> network_calculate_output_losses(const std::vector<double> expected_activations);
+
+    // There are all the GPU functions
+    public:
+        void network_forward_propagationGPU(const std::vector<double> &input);
+
+        void network_backward_propagationGPU(const std::vector<double> &expected_activations);
+
+    private:
+        void network_calculate_output_lossesGPU(const std::vector<double> &expected_activations);
 };
 
 #endif
