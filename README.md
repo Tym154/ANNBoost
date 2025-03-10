@@ -1,22 +1,34 @@
-Welcome to Neural Network Library – a lightweight and efficient C++ library designed for optimization and ease of use.
-This library provides an intuitive API for building, training, and optimizing neural networks efficiently.
+Neural Network Library
 
-!!!Warning!!!
-This library is under development, all features might not be working or are under development
+Welcome to Neural Network Library – a lightweight and efficient C++ library designed for optimization and ease of use. This library provides an intuitive API for building, training, and optimizing neural networks efficiently.
 
-Here are things that should work:
-    
-    all CORE functions
-    
-    cuda trainer, but only the forward propagation is working the backward propagation still runs on a single CPU thread.
+🚧 Warning: Under Development
 
+This library is currently in development. Some features may not be fully functional or are still being worked on.
 
-Developing GPU and CPU paralelization for forward and backward propagation now...
+✅ Features That Work
 
-Contributions are welcome!
+Core Functions: All essential neural network operations are implemented.
 
+CUDA Trainer (Partial Support):
 
-For any questions or suggestions, feel free to reach out!
+Forward propagation runs on GPU.
 
-📧 Email: k.tym.elsnic@gmail.com📌 
-GitHub: Tym154
+Backward propagation still runs on a single CPU thread.
+
+🚀 Work in Progress
+
+GPU and CPU parallelization for both forward and backward propagation.
+
+🤝 Contributions
+
+Contributions are welcome! Feel free to submit issues, pull requests, or feature suggestions.
+
+📬 Contact
+
+For any questions or suggestions, feel free to reach out:
+
+📧 Email: k.tym.elsnic@gmail.com
+
+📌 GitHub: Tym154
+
