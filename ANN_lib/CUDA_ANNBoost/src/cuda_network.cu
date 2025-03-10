@@ -6,6 +6,6 @@ void network::network_forward_propagationGPU(const std::vector<double> &input){
     }
 
     for(size_t i = 1; i < layers.size(); i++){
-        layers[i].layer_forward_propagationGPU(layers[i-1].nodes_in_layer);
+        layer_forward_propagationGPU(layers[i-1].nodes_in_layer, layers[i].nodes_in_layer);
     }
 }
