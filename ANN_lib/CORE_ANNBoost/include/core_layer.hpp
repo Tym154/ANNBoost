@@ -10,7 +10,7 @@ class network_layer{
         std::vector<network_node> nodes_in_layer; 
 
         // network layer constructor to initialize the nodes in the layer
-        network_layer(const int &number_of_nodes,const int &number_of_previous_nodes,const activation_type &selected_activation_type);
+        network_layer(const int &number_of_nodes,const int &number_of_previous_nodes, const activation_type &selected_activation_type);
         // second constructor for loading
         network_layer();
 
