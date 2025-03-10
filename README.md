@@ -5,7 +5,9 @@ This library provides an intuitive API for building, training, and optimizing ne
 This library is under development, all features might not be working or are under development
 
 Here are things that should work:
+    
     all CORE functions
+    
     cuda trainer, but only the forward propagation is working the backward propagation still runs on a single CPU thread.
 
 
