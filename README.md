@@ -3,9 +3,10 @@ This library provides an intuitive API for building, training, and optimizing ne
 
 !!!Warning!!!
 This library is under development, all features might not be working or are under development
+
 Here are things that should work:
-all CURE functions
-cuda trainer, but only the forward propagation is working the backward propagation still runs on a single CPU thread.
+    all CORE functions
+    cuda trainer, but only the forward propagation is working the backward propagation still runs on a single CPU thread.
 
 
 Developing GPU and CPU paralelization for forward and backward propagation now...
