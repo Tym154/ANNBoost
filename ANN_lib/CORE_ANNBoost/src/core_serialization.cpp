@@ -9,9 +9,10 @@ void save_current_network_to_file(const network &network_needed_to_be_saved, con
     std::ofstream outputfile(name_of_saved_file);
 
     outputfile << network_needed_to_be_saved.activation_type_chosen << " " << network_needed_to_be_saved.learning_rate << "\n";
-    for(size_t i = 0; i < network_needed_to_be_saved.layers.size(); i++){
+    for(size_t i = 0; i < network_needed_to_be_saved.layers.size() - 1; i++){
         outputfile << network_needed_to_be_saved.layers[i].nodes_in_layer.size() << " ";
     }
+    outputfile << network_needed_to_be_saved.layers.back().nodes_in_layer.size();
 
     for(size_t i = 1; i < network_needed_to_be_saved.layers.size(); i++){
         for(size_t j = 0; j < network_needed_to_be_saved.layers[i].nodes_in_layer.size(); j++){
