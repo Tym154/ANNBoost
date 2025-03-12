@@ -4,8 +4,8 @@
 #include <cassert>
 #include <iostream>
 
-void save_current_network_to_file(const network &network_needed_to_be_saved){
-    std::ofstream outputfile("saved_network{debug}.txt");
+void save_current_network_to_file(const network &network_needed_to_be_saved, cosnt std::string name_of_saved_file){
+    std::ofstream outputfile(name_of_saved_file);
 
     outputfile  << network_needed_to_be_saved.activation_type_chosen << " " << network_needed_to_be_saved.learning_rate << "\n";
     for(size_t i = 0; i < network_needed_to_be_saved.layers.size(); i++){
