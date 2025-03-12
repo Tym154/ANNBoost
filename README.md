@@ -28,5 +28,3 @@ For any questions or suggestions, feel free to reach out:
 
 📧 Email: k.tym.elsnic@gmail.com
 
-📌 GitHub: Tym154
-
