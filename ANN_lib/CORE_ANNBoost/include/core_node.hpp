@@ -34,7 +34,6 @@ class network_node{
         // backward propagation to update the weights and a bias
         void node_backward_propagation(const double &loss, const std::vector<network_node> &previous_layer_nodes, const double &learning_rate);
 
-    private:
         // returning the derivative based on the activation/value and the activation type chosen
         double get_derivative();
 };

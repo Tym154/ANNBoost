@@ -11,6 +11,6 @@ void network_backward_propagationGPU(const std::vector<double> &expected_activat
 
 void network_calculate_output_lossesGPU(const std::vector<double> &expected_activations);
 
-__global__ void calculate_output_losses(double* d_outputs, double* d_expected_activations, double* d_activations, int num_nodes, float* latest_net_cost);
+__global__ void calculate_output_lossesGPU(double* d_outputs, double* d_expected_activations, double* d_activations, int num_nodes, float* latest_net_cost);
 
 #endif

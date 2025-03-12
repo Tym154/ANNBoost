@@ -14,7 +14,11 @@ void network::network_forward_propagationGPU(const std::vector<double> &input){
 void network::network_backward_propagationGPU(const std::vector<double> &expected_activations){
     network_calculate_output_lossesGPU(expected_activations);
 
+    std::vector<double> losses = layers.back().layer_backward_propagationGPU(output_layer_losses, layers[layers.size() - 2].nodes_in_layer, learning_rate);
 
+    for(int i = layers.size()-2; i > 0; i--){
+        losses = layers[i].layer_backward_propagationGPU(losses, layers[i-1].nodes_in_layer, learning_rate);
+    }
 }
 
 void network::network_calculate_output_lossesGPU(const std::vector<double> &expected_activations){
@@ -54,7 +58,7 @@ void network::network_calculate_output_lossesGPU(const std::vector<double> &expe
     int num_blocks = (num_nodes + threads_per_block - 1) / threads_per_block;
 
     latest_network_cost = 0;
-    calculate_output_losses<<<num_blocks, threads_per_block>>>(d_outputs, d_expected_activations, d_activations, num_nodes, d_latest_net_cost);
+    calculate_output_lossesGPU<<<num_blocks, threads_per_block>>>(d_outputs, d_expected_activations, d_activations, num_nodes, d_latest_net_cost);
 
     cudaDeviceSynchronize();
 
