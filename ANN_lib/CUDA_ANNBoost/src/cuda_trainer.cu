@@ -7,6 +7,6 @@ void online_train_GPU(const std::vector<std::vector<double>> &input_data, const 
     for(int i = 0; i < input_data_size && i < expected_activations_size; i++){
         net.network_forward_propagation_GPU(input_data[i]);
 
-        net.network_backward_propagation_GPU(expected_activations[i]);
+        net.network_backward_propagation(expected_activations[i]);
     }
 }

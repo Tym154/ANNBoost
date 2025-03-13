@@ -1,8 +1,8 @@
 #include "../include/cuda_layer.hpp"
 
 
-void layer_forward_propagation_GPU(const std::vector<network_node> &nodes_in_previous_layer, std::vector<network_node> &current_layer_nodes){
-    int num_nodes = current_layer_nodes.size();
+void network_layer::layer_forward_propagation_GPU(const std::vector<network_node> &nodes_in_previous_layer){
+    int num_nodes = nodes_in_layer.size();
     int num_inputs = nodes_in_previous_layer.size();
 
     std::vector<double> host_weights(num_nodes * num_inputs);
@@ -11,10 +11,10 @@ void layer_forward_propagation_GPU(const std::vector<network_node> &nodes_in_pre
     std::vector<double> host_outputs(num_nodes);
 
     for(size_t i = 0; i < num_nodes; i++){
-        host_biases[i] = current_layer_nodes[i].bias;
+        host_biases[i] = nodes_in_layer[i].bias;
 
         for(size_t j = 0; j < num_inputs; j++){
-            host_weights[i * num_inputs + j] = current_layer_nodes[i].input_weights[j];
+            host_weights[i * num_inputs + j] = nodes_in_layer[i].input_weights[j];
             host_inputs[j] = nodes_in_previous_layer[j].activation;
         }
     }
@@ -34,12 +34,12 @@ void layer_forward_propagation_GPU(const std::vector<network_node> &nodes_in_pre
     cudaMemcpy(d_inputs, host_inputs.data(), inputs_size, cudaMemcpyHostToDevice);
     cudaMemcpy(d_biases, host_biases.data(), biases_size, cudaMemcpyHostToDevice);
 
-    int activation = current_layer_nodes[0].activation_type_chosen;
+    int activation = nodes_in_layer[0].activation_type_chosen;
 
     int threads_per_block = 512;
     int num_blocks = (num_nodes + threads_per_block - 1) / threads_per_block;
 
-    forward_propagation_kernel<<<num_blocks, threads_per_block>>>(d_weights, d_inputs, d_biases, d_outputs, num_nodes, num_inputs, activation);
+    layer_forward_propagation_kernel<<<num_blocks, threads_per_block>>>(d_weights, d_inputs, d_biases, d_outputs, num_nodes, num_inputs, activation);
 
     cudaError_t err = cudaGetLastError();
     if (err != cudaSuccess) {
@@ -57,7 +57,7 @@ void layer_forward_propagation_GPU(const std::vector<network_node> &nodes_in_pre
     cudaMemcpy(host_outputs.data(), d_outputs, outputs_size, cudaMemcpyDeviceToHost);
 
     for (size_t i = 0; i < num_nodes; i++) {
-        current_layer_nodes[i].activation = host_outputs[i];
+        nodes_in_layer[i].activation = host_outputs[i];
     }
 
     cudaFree(d_weights);
@@ -66,7 +66,7 @@ void layer_forward_propagation_GPU(const std::vector<network_node> &nodes_in_pre
     cudaFree(d_outputs);
 }
 
-__global__ void forward_propagation_kernel(double* d_weights, double* d_inputs, double* d_biases, double* d_outputs, int num_nodes, int num_inputs, int activation_type){
+__global__ void layer_forward_propagation_kernel(double* d_weights, double* d_inputs, double* d_biases, double* d_outputs, int num_nodes, int num_inputs, int activation_type){
     int node_index = blockIdx.x * blockDim.x + threadIdx.x;
 
     if (node_index < num_nodes) {

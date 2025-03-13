@@ -7,17 +7,17 @@ void network::network_forward_propagation_GPU(const std::vector<double> &input){
     }
 
     for(size_t i = 1; i < layers.size(); i++){
-        layer_forward_propagationGPU(layers[i-1].nodes_in_layer, layers[i].nodes_in_layer);
+        layers[i].layer_forward_propagation_GPU(layers[i-1].nodes_in_layer);
     }
 }
 
 void network::network_backward_propagation_GPU(const std::vector<double> &expected_activations){
-    network_calculate_output_lossesGPU(expected_activations);
+    network_calculate_output_losses_GPU(expected_activations);
 
-    std::vector<double> losses = layers.back().layer_backward_propagationGPU(output_layer_losses, layers[layers.size() - 2].nodes_in_layer, learning_rate);
+    std::vector<double> losses = layers.back().layer_backward_propagation_GPU(output_layer_losses, layers[layers.size() - 2].nodes_in_layer, learning_rate);
 
     for(int i = layers.size()-2; i > 0; i--){
-        losses = layers[i].layer_backward_propagationGPU(losses, layers[i-1].nodes_in_layer, learning_rate);
+        losses = layers[i].layer_backward_propagation_GPU(losses, layers[i-1].nodes_in_layer, learning_rate);
     }
 }
 

@@ -8,8 +8,6 @@
 
 void layer_forward_propagation_GPU(const std::vector<network_node> &nodes_in_previous_layer, std::vector<network_node> &current_layer_nodes);
 
-__global__ void forward_propagation_kernel(double* d_weights, double* d_inputs, double* d_biases, double* d_outputs, int num_nodes, int num_inputs, int activation_type);void layer_forward_propagationGPU(const std::vector<network_node> &nodes_in_previous_layer);
-
 __global__ void layer_forward_propagation_kernel(double* d_weights, double* d_inputs, double* d_biases, double* d_outputs, int num_nodes, int num_inputs, int activation_type);
 
 std::vector<double> layer_backward_propagation_GPU(const std::vector<double> &losses, const std::vector<network_node> &previous_layer_nodes,const double &learning_rate);
