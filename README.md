@@ -10,9 +10,10 @@ This library is currently in development. Some features may not be fully functio
 
 Core Functions: All essential neural network operations are implemented.
 
-CUDA Trainer:
+CUDA Trainer (partialy):
 
-Forward propagation on GPU and backward propagation on GPu
+Forward propagation on GPU
+Backward propagation still on single thread CPU
 
 🚀 Work in Progress
 
