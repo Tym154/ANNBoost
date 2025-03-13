@@ -26,10 +26,10 @@ class network_layer{
     // There are all the GPU functions
     public:
         // Forward propagation parallelized on GPU using cuda
-        void layer_forward_propagationGPU(const std::vector<network_node> &nodes_in_previous_layer);
+        void layer_forward_propagation_GPU(const std::vector<network_node> &nodes_in_previous_layer);
 
         // Backward propagation parallelized on GPU using cuda
-        std::vector<double> layer_backward_propagationGPU(const std::vector<double> &losses, const std::vector<network_node> &previous_layer_nodes,const double &learning_rate);
+        std::vector<double> layer_backward_propagation_GPU(const std::vector<double> &losses, const std::vector<network_node> &previous_layer_nodes,const double &learning_rate);
 };
 
 #endif

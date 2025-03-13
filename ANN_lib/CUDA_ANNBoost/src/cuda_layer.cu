@@ -1,7 +1,7 @@
 #include "../include/cuda_layer.hpp"
 
 
-void layer_forward_propagationGPU(const std::vector<network_node> &nodes_in_previous_layer, std::vector<network_node> &current_layer_nodes){
+void layer_forward_propagation_GPU(const std::vector<network_node> &nodes_in_previous_layer, std::vector<network_node> &current_layer_nodes){
     int num_nodes = current_layer_nodes.size();
     int num_inputs = nodes_in_previous_layer.size();
 
@@ -86,7 +86,7 @@ __global__ void forward_propagation_kernel(double* d_weights, double* d_inputs, 
     }
 }
 
-std::vector<double> network_layer::layer_backward_propagationGPU(const std::vector<double> &losses, const std::vector<network_node> &previous_layer_nodes,const double &learning_rate){
+std::vector<double> network_layer::layer_backward_propagation_GPU(const std::vector<double> &losses, const std::vector<network_node> &previous_layer_nodes,const double &learning_rate){
     int num_nodes = nodes_in_layer.size();
     int prev_layer_size = previous_layer_nodes.size();
 

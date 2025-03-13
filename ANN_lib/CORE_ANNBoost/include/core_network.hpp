@@ -37,14 +37,14 @@ class network{
     // There are all the GPU functions
     public:
         // Forward propagation parallelized on GPU using cuda
-        void network_forward_propagationGPU(const std::vector<double> &input);
+        void network_forward_propagation_GPU(const std::vector<double> &input);
 
         // Backward propagation parallelized on GPU using cuda
-        void network_backward_propagationGPU(const std::vector<double> &expected_activations);
+        void network_backward_propagation_GPU(const std::vector<double> &expected_activations);
 
     private:
         // Calculates output layer losses on GPU using cuda (and cost of the network)
-        void network_calculate_output_lossesGPU(const std::vector<double> &expected_activations);
+        void network_calculate_output_losses_GPU(const std::vector<double> &expected_activations);
 };
 
 #endif

@@ -3,6 +3,6 @@
 
 #include "cuda_network.hpp"
 
-void GPU_online_train(const std::vector<std::vector<double>> &input_data, const std::vector<std::vector<double>> &expected_activations, network& net);
+void online_train_GPU(const std::vector<std::vector<double>> &input_data, const std::vector<std::vector<double>> &expected_activations, network& net);
 
 #endif
