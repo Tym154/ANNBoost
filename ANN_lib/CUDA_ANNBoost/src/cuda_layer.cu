@@ -91,7 +91,7 @@ std::vector<double> network_layer::layer_backward_propagation_GPU(const std::vec
     int prev_layer_size = previous_layer_nodes.size();
 
     // Allocate host memory
-    std::vector<double> host_previous_layer_losses(prev_layer_size, 0.0);
+    std::vector<float> host_previous_layer_losses(prev_layer_size, 0.0);
     std::vector<double> host_weights(num_nodes * prev_layer_size);
     std::vector<double> host_biases(num_nodes);
     std::vector<double> host_derivatives(num_nodes);
@@ -158,7 +158,7 @@ std::vector<double> network_layer::layer_backward_propagation_GPU(const std::vec
     cudaFree(d_activations);
 
     // Return previous layer losses
-    return host_previous_layer_losses;
+    return std::vector<double>(host_previous_layer_losses.begin(), host_previous_layer_losses.end());
 }
 
 __global__ void compute_previous_layer_losses(double *d_losses, double *d_weights, float *d_prev_layer_losses, int num_nodes, int prev_layer_size){
