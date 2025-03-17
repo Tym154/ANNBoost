@@ -17,7 +17,7 @@ Backward propagation still on single thread CPU
 
 🚀 Work in Progress
 
-GPU and CPU parallelization for both forward and backward propagation.
+CPU parallelization for both forward and backward propagation.
 
 🤝 Contributions
 
