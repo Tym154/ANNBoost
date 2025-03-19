@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <cassert>
+#include <iostream>
 #include "core_node.hpp"
 #include "core_layer.hpp"
 
@@ -28,6 +29,15 @@ class network{
 
         // Returns the index of most active node in the output layer
         int get_the_most_active_in_output();
+
+
+        void online_train(const std::vector<std::vector<double>> &input_data, const std::vector<std::vector<double>> &expected_activations);
+
+
+        void save_current_network_to_file(const std::string &name_of_saved_file);
+
+
+        network load_network_from_file(const std::string &saved_network_path);
     
     private:
         // Calculates output layer losses (and cost of the network)
@@ -41,6 +51,9 @@ class network{
 
         // Backward propagation parallelized on GPU using cuda
         void network_backward_propagation_GPU(const std::vector<double> &expected_activations);
+
+
+        void online_train_GPU(const std::vector<std::vector<double>> &input_data, const std::vector<std::vector<double>> &expected_activations);
 
     private:
         // Calculates output layer losses on GPU using cuda (and cost of the network)

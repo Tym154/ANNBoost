@@ -5,28 +5,28 @@
 #include <iostream>
 
 // Saving a neural network to a txt file
-void save_current_network_to_file(const network &network_needed_to_be_saved, const std::string name_of_saved_file){
+void network::save_current_network_to_file(const std::string &name_of_saved_file){
     std::ofstream outputfile(name_of_saved_file);
 
-    outputfile << network_needed_to_be_saved.activation_type_chosen << " " << network_needed_to_be_saved.learning_rate << "\n";
-    for(size_t i = 0; i < network_needed_to_be_saved.layers.size() - 1; i++){
-        outputfile << network_needed_to_be_saved.layers[i].nodes_in_layer.size() << " ";
+    outputfile << activation_type_chosen << " " << learning_rate << "\n";
+    for(size_t i = 0; i < layers.size() - 1; i++){
+        outputfile << layers[i].nodes_in_layer.size() << " ";
     }
-    outputfile << network_needed_to_be_saved.layers.back().nodes_in_layer.size();
+    outputfile << layers.back().nodes_in_layer.size();
 
-    for(size_t i = 1; i < network_needed_to_be_saved.layers.size(); i++){
-        for(size_t j = 0; j < network_needed_to_be_saved.layers[i].nodes_in_layer.size(); j++){
+    for(size_t i = 1; i < layers.size(); i++){
+        for(size_t j = 0; j < layers[i].nodes_in_layer.size(); j++){
             outputfile << "\n";
-            outputfile << network_needed_to_be_saved.layers[i].nodes_in_layer[j].bias;
-            for(size_t k = 0; k < network_needed_to_be_saved.layers[i].nodes_in_layer[j].input_weights.size(); k++){
-                outputfile << " " << network_needed_to_be_saved.layers[i].nodes_in_layer[j].input_weights[k];
+            outputfile << layers[i].nodes_in_layer[j].bias;
+            for(size_t k = 0; k < layers[i].nodes_in_layer[j].input_weights.size(); k++){
+                outputfile << " " << layers[i].nodes_in_layer[j].input_weights[k];
             }
         }
     }
 }
 
 // Loads network from a file
-network load_network_from_file(std::string saved_network_path){
+network load_network_from_file(const std::string &saved_network_path){
     std::ifstream saved_network(saved_network_path);
     std::string parameter_line;
     getline(saved_network, parameter_line);
@@ -78,6 +78,8 @@ network load_network_from_file(std::string saved_network_path){
             net.layers[i].nodes_in_layer.emplace_back(layer_sizes[i-1], loaded_activation_type, loaded_weights, loaded_bias);
         }
     }
+
+    net.output_layer_losses.resize(net.layers.back().nodes_in_layer.size(), 0.0);
     
     return net;
 }
