@@ -23,10 +23,12 @@ network::network(const std::vector<int> &layer_sizes, const activation_type &sel
 }
 
 // Network constructor used for loading
-network::network(activation_type &selected_activation_type, double &selected_learning_rate){
+network::network(activation_type &selected_activation_type, double &selected_learning_rate, const int output_layer_size){
     learning_rate = selected_learning_rate;
 
     activation_type_chosen = selected_activation_type;
+
+    output_layer_losses.resize(output_layer_size, 0.0);
 }
 
 // Forward propagation

@@ -48,7 +48,7 @@ network load_network_from_file(const std::string &saved_network_path){
         layer_sizes.push_back(stoi(size_of_layer));
     }
 
-    network net(loaded_activation_type, loaded_learning_rate);
+    network net(loaded_activation_type, loaded_learning_rate, layer_sizes.back());
     for(size_t i = 0; i < layer_sizes.size(); i++){
         net.layers.emplace_back();
         net.layers.back().nodes_in_layer.reserve(layer_sizes[i]);
@@ -79,7 +79,5 @@ network load_network_from_file(const std::string &saved_network_path){
         }
     }
 
-    net.output_layer_losses.resize(net.layers.back().nodes_in_layer.size(), 0.0);
-    
     return net;
 }

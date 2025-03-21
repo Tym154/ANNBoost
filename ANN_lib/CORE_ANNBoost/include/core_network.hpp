@@ -19,7 +19,7 @@ class network{
         // Basic network constructors
         network(const std::vector<int> &layer_sizes, const activation_type &selected_activation_type, const double &selected_learning_rate);
         // Constructor used in loading the network
-        network(activation_type &selected_activation_type, double &selected_learning_rate);
+        network(activation_type &selected_activation_type, double &selected_learning_rate, const int output_layer_size);
 
         // Forward propagation
         void network_forward_propagation(const std::vector<double> &input);
