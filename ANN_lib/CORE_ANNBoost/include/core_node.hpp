@@ -29,7 +29,7 @@ class network_node{
         void activate_node();
 
         // calculating the difference between the activation of the node and the expected activation
-        double calculate_delta(const int &expected_activation);
+        double calculate_loss(const int &expected_activation);
 
         // backward propagation to update the weights and a bias
         void node_backward_propagation(const double &loss, const std::vector<network_node> &previous_layer_nodes, const double &learning_rate);

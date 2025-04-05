@@ -91,7 +91,7 @@ std::vector<double> network::network_calculate_output_losses(const std::vector<d
     // Calculating the output layer losses
     for(size_t i = 0; i < expected_activations.size(); i++){
         // Calculating the delta of expected activation and activation of the node (which is the loss)
-        losses[i] = layers[layers.size() - 1].nodes_in_layer[i].calculate_delta(expected_activations[i]);
+        losses[i] = layers[layers.size() - 1].nodes_in_layer[i].calculate_loss(expected_activations[i]);
 
         // Adding the loss to the cost of the network
         latest_network_cost += losses[i];

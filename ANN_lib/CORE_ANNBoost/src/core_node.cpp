@@ -50,7 +50,7 @@ void network_node::activate_node(){
 }
 
 // Calculating the difference between the activation of the node and the expected activation
-double network_node::calculate_delta(const int &expected_activation){
+double network_node::calculate_loss(const int &expected_activation){
     return expected_activation - activation;
 }
 
