@@ -1,23 +1,58 @@
-Neural Network Library
+# 🧠 ANNBoost
 
-Welcome to Neural Network Library – a lightweight and efficient C++ library designed for optimization and ease of use. This library provides an intuitive API for building, training, and optimizing neural networks efficiently.
+**ANNBoost** is a fully custom-built, object-oriented neural network library written from scratch — with no dependencies on existing ML frameworks — built to support **learning and exploration** of artificial neural networks.
 
-🚧 Warning: Under Development
+It’s designed to be educational, hackable, and transparent, giving you full visibility into how feedforward networks function under the hood. No black boxes. Just pure, clean neural net fundamentals.
 
-This library is currently in development. Some features may not be fully functional or are still being worked on.
+---
 
-✅ Features That Work
+## 🎯 Features
 
-Core Functions: All essential neural network operations are implemented.
+✅ From-scratch implementation (no deep learning libraries used)  
+✅ Educational focus — perfect for learning and experimenting  
+✅ Training loop  
+✅ Optional GPU parallelization  
+✅ Model saving and loading  
+✅ Easy to extend with custom activation functions  
+✅ Object-Oriented Design: `network`, `layer`, and `node` classes  
+🚧 Logging and visualization in development  
+🚫 No optimizers yet  
+🚫 No dataset loading utilities (DIY-friendly)  
+🚫 No regularization (yet!)
 
-CUDA Trainer (Fully):
+---
 
-Forward propagation on GPU
-Backward propagation still on single thread CPU
+## 📦 Project Structure
 
-🚀 Work in Progress
+- `core_network.hpp` – core logic for model structure and forward/backward passes  
+- `core_trainer.hpp` – training functions (online/batch training)  
+- `core_serialization.hpp` – tools for saving/loading network weights  
+- No third-party dependencies for neural networks  
+- Built-in support for MNIST CSV inputs (as shown in example)
 
-CPU parallelization for both forward and backward propagation.
+---
+
+## 🧪 Sample Usage
+
+Here’s an example of how ANNBoost is used to train on a local MNIST CSV file (with added noise and normalization):
+
+```cpp
+#include "core_network.hpp"
+#include "core_trainer.hpp"
+#include "core_serialization.hpp"
+
+int main() {
+    network test_net({784, 100, 100, 10}, Sigmoid, 0.001);
+    test_net.save_current_network_to_file("saved_network{debug}.txt");
+
+    // Load and preprocess CSV...
+    // (See full example in main.cpp)
+
+    test_net.online_train(input_data, expected_outputs);
+    test_net.save_current_network_to_file("saved_network{debug}.txt");
+    return 0;
+}
+
 
 🤝 Contributions
 
