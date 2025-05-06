@@ -44,7 +44,7 @@ Here’s an example of how ANNBoost is used to train on a local MNIST CSV file (
 int main() {
     network test_net({784, 100, 100, 10}, Sigmoid, 0.001);
 
-    // Load and preprocess CSV...
+    // Load and preprocess data...
 
     test_net.online_train(input_data, expected_outputs);
     test_net.save_current_network_to_file("saved_network{debug}.txt");
