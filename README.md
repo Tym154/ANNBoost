@@ -46,7 +46,6 @@ int main() {
     test_net.save_current_network_to_file("saved_network{debug}.txt");
 
     // Load and preprocess CSV...
-    // (See full example in main.cpp)
 
     test_net.online_train(input_data, expected_outputs);
     test_net.save_current_network_to_file("saved_network{debug}.txt");
