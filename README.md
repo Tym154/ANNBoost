@@ -35,11 +35,13 @@ Here’s an example of how to use:
 #include "core_serialization.hpp"
 
 int main() {
-    network test_net({784, 100, 100, 10}, Sigmoid, 0.001);
+    \\ ({input_size, {hidden_layers}, output_size}, hidden_Activation, output_activation, learning_rate, bias_init_range)
+    network test_network({784, 100, 100, 10}, LeakyReLU, Sigmoid, 0.001, {-0.1f, 0.1f});
 
     // Load and preprocess data...
 
-    test_net.online_train(input_data, expected_outputs);
-    test_net.save_current_network_to_file("saved_network{debug}.txt");
+    test_network.online_train(input_data, expected_outputs);
+    \\ saves to /bin
+    test_network.save_current_network_to_file("saved_network.txt");
     return 0;
 }
