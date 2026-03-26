@@ -1,8 +1,6 @@
 # ANNBoost
 
-**ANNBoost** is a fully custom-built, object-oriented neural network library written from scratch — with no dependencies on existing ML frameworks — built to support **learning and exploration** of artificial neural networks.
-
-It’s designed to be educational, hackable, and transparent, giving you full visibility into how feedforward networks function under the hood. No black boxes. Just pure, clean neural net fundamentals.
+**ANNBoost** is a fully custom-built, object-oriented neural network library written from scratch; with no dependencies on existing ML.
 
 ---
 
