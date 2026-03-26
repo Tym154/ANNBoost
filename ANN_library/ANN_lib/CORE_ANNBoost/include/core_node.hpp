@@ -6,7 +6,10 @@
 
 enum activation_type {
     Sigmoid = 1,
-    Relu = 2
+    Relu = 2,
+    LeakyReLU = 3,
+    Tanh = 4,
+    Linear = 5,
 };
 
 class network_node{
@@ -18,7 +21,7 @@ class network_node{
         activation_type activation_type_chosen; 
 
         // network node constructor that initializes the weights, bias and the chosen activation type
-        network_node(const int &number_of_previous_nodes, const activation_type &selected_activation_type);
+        network_node(const int &number_of_previous_nodes, const activation_type &selected_activation_type, const std::pair<float, float> &bias_start_range);
         // network node constructor usee for loading
         network_node(const int &number_of_previous_nodes, const activation_type &selected_activation_type, const std::vector<double> &loaded_weights, const double &loaded_bias);
 

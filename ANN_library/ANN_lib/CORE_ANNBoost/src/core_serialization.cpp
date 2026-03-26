@@ -1,4 +1,4 @@
-#include "../include/core_serialization.hpp"
+#include "../include/core_network.hpp"
 #include <sstream>
 #include <fstream>
 #include <cassert>
@@ -8,7 +8,7 @@
 void network::save_current_network_to_file(const std::string &name_of_saved_file){
     std::ofstream outputfile(name_of_saved_file);
 
-    outputfile << activation_type_chosen << " " << learning_rate << "\n";
+    outputfile << hidden_activation_type_chosen << " " << output_activation_type_chosen << " " << learning_rate <<"\n";
     for(size_t i = 0; i < layers.size() - 1; i++){
         outputfile << layers[i].nodes_in_layer.size() << " ";
     }
@@ -35,7 +35,10 @@ network load_network_from_file(const std::string &saved_network_path){
     std::string part;
 
     getline(parameters, part, ' ');
-    activation_type loaded_activation_type = activation_type(stoi(part));
+    activation_type loaded_hidden_activation_type = activation_type(stoi(part));
+
+    getline(parameters, part, ' ');
+    activation_type loaded_output_activation_type = activation_type(stoi(part));
 
     getline(parameters, part, ' ');
     double loaded_learning_rate = stod(part);
@@ -48,7 +51,7 @@ network load_network_from_file(const std::string &saved_network_path){
         layer_sizes.push_back(stoi(size_of_layer));
     }
 
-    network net(loaded_activation_type, loaded_learning_rate, layer_sizes.back());
+    network net(loaded_hidden_activation_type, loaded_output_activation_type, loaded_learning_rate, layer_sizes.back());
     for(size_t i = 0; i < layer_sizes.size(); i++){
         net.layers.emplace_back();
         net.layers.back().nodes_in_layer.reserve(layer_sizes[i]);
@@ -56,10 +59,13 @@ network load_network_from_file(const std::string &saved_network_path){
 
     std::vector<double> empty_weights;
     for (int i = 0; i < layer_sizes[0]; i++) {
-        net.layers[0].nodes_in_layer.emplace_back(0, loaded_activation_type, empty_weights, 0.0);
+        net.layers[0].nodes_in_layer.emplace_back(0, loaded_hidden_activation_type, empty_weights, 0.0);
     }
 
     for(size_t i = 1; i < layer_sizes.size(); i++){
+
+        activation_type layer_activation = (i == layer_sizes.size() - 1) ? loaded_output_activation_type : loaded_hidden_activation_type;
+
         for(int j = 0; j < layer_sizes[i]; j++){
             getline(saved_network, parameter_line);
             std::stringstream parameters(parameter_line);
@@ -75,7 +81,7 @@ network load_network_from_file(const std::string &saved_network_path){
                 loaded_weights[k] = stod(weight);
             }
 
-            net.layers[i].nodes_in_layer.emplace_back(layer_sizes[i-1], loaded_activation_type, loaded_weights, loaded_bias);
+            net.layers[i].nodes_in_layer.emplace_back(layer_sizes[i-1], layer_activation, loaded_weights, loaded_bias);
         }
     }
 

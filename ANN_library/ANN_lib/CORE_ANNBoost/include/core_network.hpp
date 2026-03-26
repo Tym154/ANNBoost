@@ -12,14 +12,18 @@ class network{
     public:
         std::vector<network_layer> layers; // layers in the network
         std::vector<double> output_layer_losses; // losses of the output layers
+        double latest_network_loss; // loss of the network
         double latest_network_cost; // cost of the network
         double learning_rate; // selected learning rate
-        activation_type activation_type_chosen;
+        activation_type hidden_activation_type_chosen;
+        activation_type output_activation_type_chosen;
 
         // Basic network constructors
-        network(const std::vector<int> &layer_sizes, const activation_type &selected_activation_type, const double &selected_learning_rate);
+        network(const std::vector<int> &layer_sizes, const activation_type &selected_hidden_activation_type, const activation_type &selected_output_activation_type, const double &selected_learning_rate, const std::pair<float, float> &bias_start_range);
         // Constructor used in loading the network
-        network(activation_type &selected_activation_type, double &selected_learning_rate, const int output_layer_size);
+        network(activation_type &selected_hidden_activation_type, activation_type &selected_output_activation_type, double &selected_learning_rate, const int output_layer_size);
+
+        network();
 
         // Forward propagation
         void network_forward_propagation(const std::vector<double> &input);
@@ -29,6 +33,8 @@ class network{
 
         // Returns the index of most active node in the output layer
         int get_the_most_active_in_output();
+        // Returns the output layer activations
+        std::vector<double> get_output_activations() const;
 
 
         void online_train(const std::vector<std::vector<double>> &input_data, const std::vector<std::vector<double>> &expected_activations);

@@ -1,4 +1,4 @@
-#include "../include/core_trainer.hpp"
+#include "../include/core_network.hpp"
 #include <cassert>
 
 // Trains the network one one by one without batching
@@ -12,4 +12,6 @@ void network::online_train(const std::vector<std::vector<double>> &input_data, c
 
         network_backward_propagation(expected_activations[i]);
     }
+    std::cout << "Latest network cost: " << latest_network_cost << std::endl;
+    latest_network_cost = 0.0;
 }    

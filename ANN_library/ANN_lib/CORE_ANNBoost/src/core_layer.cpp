@@ -2,10 +2,10 @@
 #include <cmath>
 
 // Basic constructor
-network_layer::network_layer(const int &number_of_nodes,const int &number_of_previous_nodes,const activation_type &selected_activation_type){
+network_layer::network_layer(const int &number_of_nodes, const int &number_of_previous_nodes, const activation_type &selected_activation_type, const std::pair<float, float> &bias_start_range){
     nodes_in_layer.reserve(number_of_nodes);
     for(int i = 0; i < number_of_nodes; i++){
-        nodes_in_layer.emplace_back(network_node(number_of_previous_nodes, selected_activation_type));
+        nodes_in_layer.emplace_back(network_node(number_of_previous_nodes, selected_activation_type, bias_start_range));
     }
 }
 

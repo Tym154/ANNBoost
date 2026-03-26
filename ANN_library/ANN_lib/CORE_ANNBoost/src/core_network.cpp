@@ -2,34 +2,40 @@
 #include <cmath>
 
 // Basic network constructor
-network::network(const std::vector<int> &layer_sizes, const activation_type &selected_activation_type, const double &selected_learning_rate){
+network::network(const std::vector<int> &layer_sizes, const activation_type &selected_hidden_activation_type, const activation_type &selected_output_activation_type, const double &selected_learning_rate, const std::pair<float, float> &bias_start_range){
     assert(layer_sizes.size() >= 2 && "Network has to have more than one layer");
 
     layers.reserve(layer_sizes.size());
 
     auto it = layer_sizes.begin();
-    layers.emplace_back(network_layer(*it, 0, selected_activation_type));
+    layers.emplace_back(network_layer(*it, 0, selected_hidden_activation_type, bias_start_range));
 
     // Filling the layers vector with layers
-    for(it++ ; it != layer_sizes.end(); it++){
-        layers.emplace_back(network_layer(*it, *(it-1), selected_activation_type));
+        for (++it; it != layer_sizes.end(); ++it) {
+        // Determine if this is the last layer
+        bool is_last_layer = (std::next(it) == layer_sizes.end());
+        activation_type layer_activation = is_last_layer ? selected_output_activation_type : selected_hidden_activation_type;
+
+        layers.emplace_back(network_layer(*it, *(it - 1), layer_activation, bias_start_range));
     }
 
     output_layer_losses.resize(layers.back().nodes_in_layer.size(), 0.0);
-
     learning_rate = selected_learning_rate; // Setting the learning rate
-
-    activation_type_chosen = selected_activation_type; // Setting the activation type
+    hidden_activation_type_chosen = selected_hidden_activation_type; // Setting the hidden activation type
+    output_activation_type_chosen = selected_output_activation_type; // Setting the output activation type
 }
 
 // Network constructor used for loading
-network::network(activation_type &selected_activation_type, double &selected_learning_rate, const int output_layer_size){
+network::network(activation_type &selected_hidden_activation_type, activation_type &selected_output_activation_type, double &selected_learning_rate, const int output_layer_size){
     learning_rate = selected_learning_rate;
 
-    activation_type_chosen = selected_activation_type;
+    hidden_activation_type_chosen = selected_hidden_activation_type;
+    output_activation_type_chosen = selected_output_activation_type;
 
     output_layer_losses.resize(output_layer_size, 0.0);
 }
+
+network::network(){}
 
 // Forward propagation
 void network::network_forward_propagation(const std::vector<double> &input){
@@ -80,11 +86,20 @@ int network::get_the_most_active_in_output(){
     return most_active_index;
 }
 
+// Returns the output layer activations
+std::vector<double> network::get_output_activations() const {
+    std::vector<double> output_activations(layers.back().nodes_in_layer.size(), 0.0);
+    for(size_t i = 0; i < layers.back().nodes_in_layer.size(); i++){
+        output_activations[i] = layers.back().nodes_in_layer[i].activation;
+    }
+    return output_activations;
+}
+
 // Calculates the losses of output layer (and cost of the network)
 std::vector<double> network::network_calculate_output_losses(const std::vector<double> expected_activations){
     // Checking if the passed values are correct size
     assert(expected_activations.size() == layers[layers.size() - 1].nodes_in_layer.size() && "expected_activation vector has to be the same size as the output layer");
-    latest_network_cost = 0.0; // Reseting the latest_network_cost to 0.0
+    latest_network_loss = 0.0; // Reseting the latest_network_cost to 0.0
 
     std::vector<double> losses(expected_activations.size(), 0);
     
@@ -94,7 +109,8 @@ std::vector<double> network::network_calculate_output_losses(const std::vector<d
         losses[i] = layers[layers.size() - 1].nodes_in_layer[i].calculate_loss(expected_activations[i]);
 
         // Adding the loss to the cost of the network
-        latest_network_cost += losses[i];
+        latest_network_loss += losses[i];
+        latest_network_cost += std::pow(losses[i], 2);
     }
 
     return losses;
